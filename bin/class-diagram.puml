@@ -1,0 +1,64 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam defaultFontName Arial
+
+class SmartVacuumCleaner {
+  - model : String
+  - battery : Battery
+  - dustBin : DustBin
+  - motor : Motor
+  - currentRoom : Room
+  + startCleaning(room : Room) : void
+  + moveForward() : void
+  + stopCleaning() : void
+  + chargeBattery() : void
+  + emptyBin() : void
+  + getBatteryLevel() : int
+}
+
+class Battery {
+  - level : int
+  + getLevel() : int
+  + isLow() : boolean
+  + use(amount : int) : void
+  + charge() : void
+}
+
+class DustBin {
+  - capacity : int
+  - dust : int
+  + getDust() : int
+  + isFull() : boolean
+  + addDust(amount : int) : void
+  + empty() : void
+}
+
+class Motor {
+  - on : boolean
+  - speed : int
+  - distance : int
+  + isOn() : boolean
+  + getDistance() : int
+  + start() : void
+  + stop() : void
+  + moveForward() : void
+}
+
+class Room {
+  - name : String
+  - area : int
+  - dirt : int
+  + getName() : String
+  + getArea() : int
+  + getDirt() : int
+  + isClean() : boolean
+  + removeDirt(amount : int) : void
+}
+
+SmartVacuumCleaner "1" *-- "1" Battery : агуулна
+SmartVacuumCleaner "1" *-- "1" DustBin : агуулна
+SmartVacuumCleaner "1" *-- "1" Motor : агуулна
+SmartVacuumCleaner "*" --> "0..1" Room : цэвэрлэнэ
+@enduml
